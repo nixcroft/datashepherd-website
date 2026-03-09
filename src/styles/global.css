@@ -29,6 +29,9 @@
   --text-hero--line-height: 1.125;
   --text-section: 2.25rem; /* 36px — Section H2 */
   --text-section--line-height: 1.25;
+
+  /* Custom breakpoint for nav (900px per brand guidelines) */
+  --breakpoint-md-nav: 56.25rem; /* 900px */
 }
 
 /* ──────────────────────────────────────────────

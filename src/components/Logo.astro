@@ -1,0 +1,20 @@
+---
+interface Props {
+  variant?: 'blue' | 'orange' | 'white';
+  class?: string;
+}
+
+const { variant = 'blue', class: className = '' } = Astro.props;
+
+const src = `/assets/logos/logo-horizontal-${variant}.svg`;
+---
+
+<a href="/" class:list={['inline-block', className]} aria-label="DataShepherd home">
+  <img
+    src={src}
+    alt="DataShepherd"
+    class="h-auto min-w-[100px]"
+    width="140"
+    height="49"
+  />
+</a>

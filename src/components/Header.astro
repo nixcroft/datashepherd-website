@@ -1,0 +1,113 @@
+---
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+
+const navLinks = [
+  { label: 'Product', href: '/product' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-dark-stone/10">
+  <nav class="relative max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <Logo variant="blue" />
+
+    {/* Desktop nav */}
+    <ul class="hidden md-nav:flex items-center gap-8 list-none m-0 p-0">
+      {navLinks.map(({ label, href }) => (
+        <li>
+          <a
+            href={href}
+            class:list={[
+              'text-dark-stone no-underline font-medium hover:text-shepherd-blue transition-colors',
+              currentPath === href && 'text-shepherd-blue',
+            ]}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="hidden md-nav:block">
+      <Button variant="primary" href="/get-started">Get Started Free</Button>
+    </div>
+
+    {/* Mobile hamburger */}
+    <button
+      id="mobile-menu-btn"
+      class="md-nav:hidden flex flex-col justify-center gap-1.5 w-8 h-8 cursor-pointer bg-transparent border-0 p-0"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Toggle navigation menu"
+    >
+      <span class="block w-full h-0.5 bg-dark-stone transition-all duration-300 origin-center"></span>
+      <span class="block w-full h-0.5 bg-dark-stone transition-all duration-300"></span>
+      <span class="block w-full h-0.5 bg-dark-stone transition-all duration-300 origin-center"></span>
+    </button>
+
+    {/* Mobile menu panel */}
+    <div
+      id="mobile-menu"
+      class="md-nav:hidden absolute top-16 left-0 right-0 bg-white border-b border-dark-stone/10 flex-col px-6 py-4 shadow-lg hidden"
+      role="navigation"
+      aria-label="Mobile navigation"
+    >
+      {navLinks.map(({ label, href }) => (
+        <a
+          href={href}
+          class:list={[
+            'text-dark-stone no-underline font-medium py-3 border-b border-dark-stone/5 last:border-0 hover:text-shepherd-blue transition-colors',
+            currentPath === href && 'text-shepherd-blue',
+          ]}
+        >
+          {label}
+        </a>
+      ))}
+      <div class="pt-4">
+        <Button variant="primary" href="/get-started" class="w-full text-center">Get Started Free</Button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const spans = btn.querySelectorAll('span');
+
+  btn.addEventListener('click', () => {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    menu.classList.toggle('hidden', isOpen);
+    menu.classList.toggle('flex', !isOpen);
+
+    // Animate hamburger to X
+    if (!isOpen) {
+      spans[0].style.transform = 'rotate(45deg) translateY(7px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translateY(-7px)';
+    } else {
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '';
+      spans[2].style.transform = '';
+    }
+  });
+
+  // Close mobile menu on resize to desktop
+  const mq = window.matchMedia('(min-width: 56.25rem)');
+  mq.addEventListener('change', (e) => {
+    if (e.matches) {
+      btn.setAttribute('aria-expanded', 'false');
+      menu.classList.add('hidden');
+      menu.classList.remove('flex');
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '';
+      spans[2].style.transform = '';
+    }
+  });
+</script>
