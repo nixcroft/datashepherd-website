@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────
+   ShepherdGuidelines 2026.v2 — Brand Tokens
+   ────────────────────────────────────────────── */
+@theme {
+  /* Primary brand colors */
+  --color-shepherd-blue: #002466;
+  --color-orange: #ff8c42;
+  --color-green: #2DA873;
+  --color-purple: #908ABF;
+  --color-red: #DB3039;
+  --color-teal: #2B9999;
+
+  /* Neutral palette */
+  --color-soft-white: #f7f7f7;
+  --color-dark-stone: #131e28;
+  --color-hyper-blue: #0000ee;
+
+  /* Extended palette from design tokens */
+  --color-shepherd-blue-light: #1a3d80;
+  --color-shepherd-blue-dark: #001a4d;
+
+  /* Typography — Fira Sans */
+  --font-sans: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Font sizes (from design tokens) */
+  --text-hero: 4rem;       /* 64px — Hero H1 */
+  --text-hero--line-height: 1.125;
+  --text-section: 2.25rem; /* 36px — Section H2 */
+  --text-section--line-height: 1.25;
+}
+
+/* ──────────────────────────────────────────────
+   Base styles
+   ────────────────────────────────────────────── */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    font-size: 16px; /* Minimum per brand guidelines p.6 */
+    color: var(--color-dark-stone);
+    background-color: var(--color-soft-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    color: var(--color-hyper-blue);
+    text-decoration-line: underline;
+    text-underline-offset: 2px;
+  }
+
+  a:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-shepherd-blue);
+    font-weight: 600;
+  }
+}
